@@ -1,0 +1,8 @@
+<?php
+/* $Id: suggestedterms.install,v 1.2 2008/10/09 17:16:13 crell Exp $ */
+
+function suggestedterms_install() {
+  // Always make sure this module runs after taxonomy does.
+  $taxonomy_weight = db_result(db_query("SELECT weight FROM {system} WHERE name='%s'", 'taxonomy'));
+  db_query("UPDATE {system} SET weight=%d WHERE name='%s'", $taxonomy_weight + 1, 'suggestedterms');
+}
