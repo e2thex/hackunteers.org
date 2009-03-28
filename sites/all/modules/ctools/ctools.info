@@ -1,0 +1,11 @@
+; $Id: ctools.info,v 1.2 2008/11/12 04:24:26 merlinofchaos Exp $
+name = Chaos tools
+description = A library of helpful tools by Merlin of Chaos.
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-03-28
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "ctools"
+datestamp = "1238198829"
+

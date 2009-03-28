@@ -1,0 +1,113 @@
+/* Layout */
+.left #main {
+  width: 74.5%;
+}
+
+/* Layout */
+.right #main {
+  width: 74.5%;
+}
+
+/* Tables */
+.table-wrapper table {
+  margin: 10px 0;
+  width: 100%;
+}
+
+table.package,
+#tracker table {
+  width: 100%;
+}
+
+/* Buttons */
+.buttons li {
+  float: left;
+}
+
+.buttons a.button {
+  display: inline-block;
+}
+
+.buttons em {
+  position: relative;
+  margin: .1em .1em -.1em .2em;
+}
+
+.buttons span {
+  display: block;
+  height: 1%!important;
+}
+
+.buttons .tl {
+  overflow: hidden;
+}
+
+.buttons .tr {
+  position: absolute;
+  overflow: visible;
+  margin:  0 0 0 3px;
+}
+
+.buttons .bl {
+  margin: -1.05em 0 0 0;
+}
+
+.buttons .br {
+  float: none;
+  overflow: visible;
+  position: relative;
+  top: .46em;
+  height: 100%;
+}
+
+/* Sidebar Menus */
+.sidebar ul.menu a {
+  float: none;
+  width: 100%;
+}
+
+/* Navigation */
+#navigation {
+  width: 100%;
+  text-align: center;
+}
+
+#navigation .wrap-center {
+ display: inline-block;
+}
+
+#navigation ul.menu a {
+  float: left;
+  display: block;
+}
+
+#navigation ul.menu ul a {
+  width: 100%;
+  float: none;
+}
+
+.sidebar ul.menu {
+  border-bottom: 0;
+}
+
+/* Tabs */
+.tabs-secondary {
+  margin: -2px 0 0 0;
+}
+
+.node {
+  display: inline-block;
+}
+
+/* Forum layout */
+.forum-wrapper-right {
+  width: 76.8%;
+}
+
+.with-picture {
+  padding-bottom: 150px;
+}
+
+.without-picture {
+  padding-bottom: 95px;
+}

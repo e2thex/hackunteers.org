@@ -1,0 +1,7 @@
+#wrapper, #footer { width: 960px; }
+html, body, .form-radio, .form-checkbox, .form-file, .form-select, select, .form-text, input, .form-textarea, textarea  { font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", "DejaVu Sans", Arial, sans-serif; }
+h1, h2, h3, h4, h5, h6,  #main h1.title, .title  { font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", "DejaVu Sans", Arial, sans-serif; }
+body { font-size: 12px; }
+#navigation ul ul, #navigation ul ul li  { width: 15em; }
+#navigation li li.expanded ul { margin: -2.65em 0 0 15em!important; }
+#header-inner { height: auto; }

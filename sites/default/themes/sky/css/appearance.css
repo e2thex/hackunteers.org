@@ -1,0 +1,620 @@
+/* $Id */
+/* -------------------------------------------------------------------------
+ * Layout Aspects
+ * ---------------------------------------------------------------------- */
+html,body {
+  background: #314C74 url('../images/bg-body.png') repeat-x left top;
+}
+
+body {
+  font-family: 'Lucida Grande', "Lucida Sans Unicode", Verdana, Helvetica, Arial, sans-serif;
+  color: #111;
+  font-size: 12px;
+}
+
+#wrapper {
+  background: #fff;
+}
+
+.mission {
+  background: #fff url('../images/bg-shade-white-lrg.png') repeat-x bottom left;
+  color: #000;
+  border-color: #eee;
+}
+
+#footer-content,
+.bottom .middle {
+  background: #fff;
+}
+
+/* -------------------------------------------------------------------------
+ * Header
+ * ---------------------------------------------------------------------- */
+#page-title { /* Needs to match the top of the background gradient image color */
+  background: #91A6C1;
+  color: #fff;
+}
+
+#header {
+  background: #3A4E6A url('../images/bg-header.png') repeat-x top left;
+  height: 132px;
+}
+
+#header #site-name a {
+  font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
+  color: #fff;
+}
+
+#header #slogan {
+  color: #fff;
+}
+
+/* -------------------------------------------------------------------------
+ * Links/General
+ * ---------------------------------------------------------------------- */
+a, a:active, a:visited, li a.active {
+  color: #314c74;
+}
+
+a:hover, .buttons div a:hover {
+  color: #000;
+}
+
+code, pre {
+  font-family: 'Monaco', 'Consolas', 'Deja Vu Sans Mono', 'Courier New', courier, monospace;
+  color: #888;
+}
+
+blockquote, cite {
+  background: url('../images/bg-cite.png') no-repeat;
+  color: #888;
+  font-style: italic;
+  padding: 10px 0 0 45px;
+}
+
+/* -------------------------------------------------------------------------
+ * Headings
+ * ---------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6,  #main h1.title {
+  font-family: 'Lucida Grande', Verdana, Arial, sans-serif;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, .node .title a {
+  color: #314C74;
+}
+
+/* -------------------------------------------------------------------------
+ * Tables
+ * ---------------------------------------------------------------------- */
+table, th, thead th, td, td.menu-disabled, #blocks td.block {
+  border-color: #ddd;
+}
+
+th, thead th {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+}
+
+td.active, tr.even, tr.odd {
+  background-color: #fff;
+}
+
+td.menu-disabled, tr.even td {
+  background: #eee;
+}
+
+td:hover, tr.even td:hover, tr.odd td:hover {
+  background-color: #ddd;
+}
+
+/* -------------------------------------------------------------------------
+ * Blocks
+ * ---------------------------------------------------------------------- */
+#blocks td.region {
+  background: #fff;
+}
+
+#main div.block {
+  border-color: #ddd;
+}
+
+/* -------------------------------------------------------------------------
+ * Sidebar
+ * ---------------------------------------------------------------------- */
+.sidebar .title {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+}
+
+.sidebar .content,
+.sidebar .btype-menu .content {
+  border-color: #ddd;
+}
+
+.sidebar ul.menu {
+  border-color: #ddd;
+}
+
+.sidebar ul.menu a,
+.sidebar ul.menu a:visited {
+  background: #fff;
+  border-color: #ddd;
+  color: #888;
+}
+
+.sidebar ul.menu li a.active,
+.sidebar ul.menu li a.active:visited {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  color: #fff;
+}
+
+/* Level 1 */
+.sidebar ul.menu li.expanded a {
+  background-image: url('../images/icons/bullet_arrow_up.gif');
+  background-repeat: no-repeat;
+  text-indent: 20px!important;
+  background-position: 5px 50%;
+}
+
+.sidebar ul.menu li.collapsed a {
+  background-image: url('../images/icons/bullet_arrow_down.gif');
+  background-repeat: no-repeat;
+  text-indent: 20px!important;
+  background-position: 5px 50%;
+}
+
+/* Level 2 */
+.sidebar ul.menu li li.collapsed a,
+.sidebar ul.menu li li.expanded a  {
+  text-indent: 28px!important;
+  background-position: 12px 50%;
+}
+
+/* Level 3 */
+.sidebar ul.menu li li li.collapsed a,
+.sidebar ul.menu li li li.expanded a {
+  text-indent: 38px!important;
+  background-position: 22px 50%;
+}
+
+/* Leaf */
+.sidebar ul.menu li.leaf a {
+  background-image: none!important;
+}
+
+/* Hover/Active */
+.sidebar ul.menu li.expanded a:hover,
+.sidebar ul.menu li.collapsed a:hover,
+.sidebar ul.menu li.leaf a:hover,
+.sidebar ul.menu a:hover,
+.sidebar ul.menu a.active {
+  color: #fff!important;
+  border-color: #ddd;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left!important;
+}
+
+.sidebar ul.menu li li:last-child a {
+  border-color: #ddd;
+}
+
+.sidebar .item-list ul li {
+  color: #888;
+}
+
+.left .sidebar ul.menu a.active:after {
+  content: ' ->';
+}
+
+.right .sidebar ul.menu a.active:before {
+  content: '<- ';
+}
+
+/* -------------------------------------------------------------------------
+ * Error/Markers
+ * ---------------------------------------------------------------------- */
+ div.error, div.status, div.warning {
+  border-color: #ddd;
+}
+
+div.error {
+  background: #eee url('../images/bg-error.gif') no-repeat left top;
+}
+
+div.status,
+div.warning {
+  background: #eee url('../images/bg-message.gif') no-repeat left top;
+}
+
+/* -------------------------------------------------------------------------
+ * Nodes
+ * ---------------------------------------------------------------------- */
+.node .info p {
+  color: #888;
+}
+
+.node-sticky  {
+  border-color: #ddd;
+}
+
+.node .content dt  {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+  border-color: #ddd;
+}
+
+.node .content dl, .node .content dd {
+  border-color: #ddd;
+}
+
+.node dd:hover  {
+  background: #ddd;
+}
+
+/* -------------------------------------------------------------------------
+ * Comments
+ * ---------------------------------------------------------------------- */
+.comment  {
+  background: #fff url('../images/bg-shade-white-lrg.png') repeat-x left bottom;
+  border-color: #ddd;
+}
+
+.comment .info {
+  color: #888;
+}
+
+/* -------------------------------------------------------------------------
+ * Polls
+ * ---------------------------------------------------------------------- */
+.sidebar .block-poll .content .title,
+.sidebar .block-poll .content .choices .form-item label,
+.sidebar .block-poll .content .choices {
+  color: #111;
+}
+
+.poll .bar .foreground {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.poll .bar {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+}
+
+/* -------------------------------------------------------------------------
+ * Forms
+ * ---------------------------------------------------------------------- */
+
+.form-radio, .form-checkbox, .form-file, .form-select, select, .form-text, input, .form-textarea, textarea {
+  color: #000;
+  font-family: 'Lucida Grande', Verdana, Arial, sans-serif;  
+}
+
+.form-textarea  {
+  background: #fff url('../images/bg-shade-white-lrg.png') repeat-x bottom left;
+  color: #000;
+}
+
+.form-text  {
+  background: #fff url('../images/bg-shade-white-sml.png') repeat-x top left;
+  color: #000;
+}
+
+.form-item .description {
+  color: #888;
+}
+
+.form-item .error, .marker, .new, .form-required {
+  border-color: #C00;
+}
+
+.form-file:focus, .form-text:focus, input:focus, .form-textarea:focus, textarea:focus  {
+  background: #eee;
+}
+
+fieldset, .form-text, .form-textarea  {
+  border-color: #ddd;
+}
+
+html.js fieldset.collapsible legend a {
+  background:transparent url('../images/icons/bullet_toggle_minus.png') no-repeat 5px 0;
+  padding: 0 0 0 24px;
+}
+
+html.js fieldset.collapsed legend a {
+  background:url('../images/icons/bullet_toggle_plus.png') no-repeat 5px 0;
+}
+
+/* -------------------------------------------------------------------------
+ * Buttons (Node Links)
+ * ---------------------------------------------------------------------- */ 
+.btn-tags {
+  background: url('../images/bg-tags.png') no-repeat left center;
+  padding-left: 2em;
+}
+
+/* Note: bg-buttons.png class should not be changed, unless the page background is change to something other than white */
+.buttons span {
+  background: url('../images/bg-buttons.png') no-repeat;
+}
+
+.buttons em {
+  color: #fff;
+}
+
+/* Note: This is the background color of the button itself.  It can be replaced with any color image, or just a background color. */
+.buttons a.button {
+  background: #b3b3b3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.buttons a.button:hover {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.buttons a.button:hover em {
+  color: #fff!important;
+}
+
+/* -------------------------------------------------------------------------
+ * Pagers
+ * ---------------------------------------------------------------------- */ 
+.pager a, .pager a:visited  {
+  background: #fff;
+  border-color: #ddd;
+  color: #888;
+}
+
+.pager li.pager-current  {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.pager a:hover {
+  border-color: #ddd;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  color: #fff;
+}
+
+/* -------------------------------------------------------------------------
+ * Navigation
+ * ---------------------------------------------------------------------- */
+ 
+/* First level links hover state */
+#navigation,
+#navigation ul ul,
+#navigation li {
+  border-color: #ddd;
+}
+
+#navigation,
+#navigation li a,
+#navigation li:hover li a,
+#navigation li a.active,
+#navigation li a:visited {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+  font-size: 1.2em
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* First level links hover state */
+#navigation li.expanded:hover a {
+  background: #fff url('../images/bg-shade-light-flip.png') repeat-x top left;
+  color: #777;
+}
+
+#navigation li a:hover,
+#navigation li:hover a:hover,
+#navigation li.expanded li:hover a,
+#navigation li.expanded:hover li a:hover,
+#navigation li li a:hover,
+#navigation li li:hover a,
+#navigation li li:hover a:hover {
+  border-color: #ddd;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  color: #fff;
+}
+
+/* Second level + hovering */
+#navigation ul ul {
+  background: #fff url('../images/bg-shade-gray-lrg.png') repeat-x bottom left;
+  color: #777;
+  border-color: #ddd;
+  line-height: 2.5em;
+}
+
+#navigation li.expanded:hover li a,
+#navigation li:hover li a, 
+#navigation li.sfHover li a {
+  color: #777;
+  border-color: #ddd;
+  background: none;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 2.5em;
+}
+
+#navigation li li:hover li a,
+#navigation li li.sfhover li a,
+#navigation li li.sfhover li.sfhover li a {
+  font-weight: normal;
+}
+#navigation li li.sfhover a,
+#navigation li li.sfhover li.sfhover a,
+#navigation li li.sfhover li.sfhover li.sfhover a {
+  width: 90%; /* IE */
+}
+
+/* Icons */
+#navigation li.expanded a {
+  background: transparent url('../images/icons/bullet_arrow_down.gif') no-repeat center right;
+}
+
+#navigation li.expanded li.expanded a {
+  background: transparent url('../images/icons/bullet_arrow_right.gif') no-repeat center right;
+}
+
+#navigation li.leaf a:hover {
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left!important;
+}
+
+#navigation .expanded .leaf a {
+  background: none!important;
+}
+
+/* -------------------------------------------------------------------------
+ * Tabs
+ * ---------------------------------------------------------------------- */
+/* Primary */
+.tabs-primary li a,
+.tabs-primary li a:visited {
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  color: #777;
+}
+
+.tabs-primary,
+.tabs-primary li a,
+.tabs-primary li a:visited,
+.tabs-primary li:first-child a {
+  border-color: #ddd;
+}
+
+.tabs-primary li a:hover,
+.tabs-primary li a:visited:hover {
+  border-color: #B3B3B3;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.tabs-primary li.active a,
+.tabs-primary li.active a:visited {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  color: #fff;
+}
+
+.tabs-primary li.active a,
+.tabs-primary li.active a:visited,
+.tabs-primary li:first-child a.active {
+  background: #858585 url('../images/bg-shade-dark.png') repeat-x bottom left;
+  border-color: #555;
+  color: #fff;
+  font-size: .95em;
+  font-weight: normal;
+}
+
+/* Secondary */
+.tabs-secondary {
+  background: #888 url('../images/bg-shade-dark.png') repeat-x scroll left bottom;
+  color: #fff;
+}
+
+.tabs-secondary li a,
+.tabs-secondary li a:visited,
+.tabs-secondary li a:hover,
+.tabs-secondary li a.active {
+  color: #fff;
+  font-weight: normal;
+}
+
+/* Highlight the active sub-selection */
+.tabs-secondary li a.active {
+  font-weight: bold;
+}
+
+.tabs-secondary li a.active:before {
+  content: '( ';
+}
+
+.tabs-secondary li a.active:after {
+  content: ' )';
+}
+
+
+/* -------------------------------------------------------------------------
+ * Forum Posts
+ * ---------------------------------------------------------------------- */
+ .forum-post,
+.forum-post-reply {
+  border: solid 1px #bbb;
+  margin-bottom: 1em;
+}
+
+.forum-wrapper-right {
+  border-left:solid 1px #bbb;
+}
+
+.forum-post-reply h2.title {
+  border-bottom:solid 1px #B3b3b3;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  padding: 2px 5px;
+  margin: 0;
+  font-size:1.3em;
+  color:#fff!important;
+}
+
+.forum-post-reply h2.title a {
+  color:#fff!important;
+}
+
+.forum-post .meta-post {
+  background:#eee;
+  border-bottom:solid 1px #bbb;
+}
+
+.forum-post .meta-author ul {
+  padding:5px;
+}
+
+.user-status-online span {
+  background: #fff url('../images/icons/user.png') no-repeat left center;
+  padding: 0px 0 2px 20px;
+}
+
+.user-status-offline span {
+  background: #fff url('../images/icons/user_gray.png') no-repeat left center;
+  padding: 0px 0 2px 20px;
+}
+
+.forum-post div.links {
+  border-top:solid 1px #B3b3b3;
+  background: #fff url('../images/bg-shade-light.png') repeat-x bottom left;
+  line-height: 32px;
+  height: 32px;
+}
+
+/* topic list table */
+#forum td,
+#forum th {
+  padding:5px;
+  vertical-align:top;
+}
+
+#forum td,
+#forum td:hover,
+#forum td.active,
+#forum td:active:hover {
+  background:#fff;
+}
+
+#forum td.container a {
+  font-weight:700;
+}
+
+/* -------------------------------------------------------------------------
+ * Misc
+ * ---------------------------------------------------------------------- */
+.block-region {
+  background-color: #91A6C1;
+  color: #fff;
+}
+
+.admin-list dd {
+  color: #888;
+}
+
+.admin-list dt  {
+  border-color: #ddd;
+}

@@ -1,0 +1,17 @@
+name = Sky
+description = Sky is a center aligned, fixed width, CSS-based, two-column layout theme that supports either all sidebar combinations (left, right, both, none)
+core = 6.x
+engine = phptemplate
+
+regions[left] = Left sidebar
+regions[right] = Right sidebar
+regions[contenttop] = Content top
+regions[contentbottom] = Content bottom
+regions[contentfooter] = Content footer
+regions[footer] = Footer
+; Information added by drupal.org packaging script on 2009-03-14
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "sky"
+datestamp = "1236989919"
+

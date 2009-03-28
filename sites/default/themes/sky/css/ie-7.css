@@ -1,0 +1,108 @@
+/* Layout */
+.left #main {
+  width: 74.5%;
+}
+
+/* Layout */
+.right #main {
+  width: 74.5%;
+}
+
+.bottom .fr {
+  width: 2.45%;
+}
+
+/* Buttons */
+.buttons li {
+  float: left;
+  line-height: 1.5em;
+  display: inline-block!important;
+  position: relative;
+}
+
+.buttons a.button {
+  display: inline-block!important;
+  float: none;
+}
+
+.buttons em {
+  position: relative;
+  margin: .1em .2em -.1em .2em;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.buttons span {
+  display: block;
+  height: 1%!important;
+}
+
+.buttons .tl {
+  overflow: hidden;
+}
+
+.buttons .tr {
+  position: absolute;
+  overflow: hidden;
+  height: 99%!important;
+}
+
+.buttons .bl {
+  margin: -1.05em 0 0 0;
+}
+
+.buttons .br {
+  float: none;
+  overflow: visible;
+  position: relative;
+  top: .45em;
+}
+
+/* Navigation */
+#navigation ul.menu ul a {
+  width: auto;
+  float: none;
+  display: block;
+}
+
+#navigation li.leaf a:hover,
+#navigation li.leaf a:visited:hover {
+  border-color: #ddd;
+  background: #B3B3B3 url('../images/bg-shade-medium.png') repeat-x bottom left;
+  color: #fff;
+} 
+
+#navigation {
+  width: 100%;
+  text-align: center;
+}
+
+#navigation .wrap-center {
+ display: inline-block;
+}
+
+#navigation ul.menu a {
+  float: left;
+  display: block;
+}
+
+.sidebar ul.menu {
+  border-bottom: 0;
+}
+
+.node {
+  display: inline-block;
+}
+
+/* Forum layout */
+.forum-wrapper-right {
+  width: 76.8%;
+}
+
+.with-picture {
+  padding-bottom: 150px;
+}
+
+.without-picture {
+  padding-bottom: 95px;
+}

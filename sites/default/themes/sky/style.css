@@ -1,0 +1,1564 @@
+/* $Id$ */
+/*
+ * Sky, for Drupal 6
+ * Project Page: http://drupal.org/project.sky
+ * Sponsored and contributed by Gravitek Labs, http://graviteklabs.com
+ * Live Demo: http://sky.graviteklabs.com
+ * Icon Credits: http://www.famfamfam.com/lab/icons/silk/
+*/
+
+/* -------------------------------------------------------------------------
+ * RESET
+ * http://meyerweb.com/eric/thoughts/2008/01/15/resetting-again/ 
+ * ---------------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+html,body {
+  height: 100%;
+  line-height: 1.6em;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*------------------------------------------------------------------------
+ * GENERAL
+ *----------------------------------------------------------------------*/
+
+/* Links */
+a, a:visited {
+  text-decoration: none;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  clear: both;
+  display: block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 1.4em;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  display: block;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h5 {
+  font-size: 1.2em;
+}
+
+/* General Tags */
+p {
+  margin: 5px 0 15px;
+}
+
+img {
+  border: none;
+}
+
+blockquote,cite {
+  clear: both;
+  display: block;
+}
+
+code, pre {
+  font-size: .9em;
+}
+
+caption {
+  text-align: left;
+}
+
+acronym, abbr {
+  border-bottom: 1px dotted;
+}
+
+acronym:hover, abbr:hover {
+  cursor: help;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  width: 100%;
+  margin: 10px 0;
+}
+
+table caption {
+  font-size: 1.4em;
+  line-height: 1.6em;
+}
+
+th {
+  border: none;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  padding: 4px 2px;
+  font-size: .95em;
+}
+
+thead th {
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  font-weight: 700;
+  text-align: left;
+  padding: 4px;
+}
+
+td {
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  padding: 4px;
+  vertical-align: top;
+  font-size: 1em;
+}
+
+.table-wrapper {
+  overflow: auto;
+}
+
+.node .table-wrapper,
+.view .table-wrapper {
+  overflow: visible;
+}
+
+.table-wrapper table {
+  margin: 10px .2%;
+  width: 99.5%;
+}
+
+table.package,
+#tracker table {
+  width: 99.5%;
+}
+
+td.menu-disabled {
+  border-bottom: 1px solid;
+}
+
+tr.even,tr.odd {
+  border-bottom: none;
+  padding: 0;
+}
+
+/* Lists */
+ul,ol {
+  clear: both;
+  margin: 10px;
+}
+
+dl {
+  width: 100%;
+  margin: 10px 0;
+}
+
+dt {
+  font-weight: 400;
+  padding: 2px 0;
+  border: none;
+}
+
+dd {
+  margin: 0;
+  padding: 10px 0;
+}
+
+/*------------------------------------------------------------------------
+ * LAYOUT
+ *----------------------------------------------------------------------*/
+ 
+#wrapper {
+  height: auto !important;
+  min-height: 100%;
+  width: 960px;
+  margin: 0 auto -5em;
+}
+
+#footer {
+  clear: both;
+  font-size: .95em;
+  height: auto;
+  min-height: 5em;
+  text-align: center;
+  width: 960px;
+  margin: 0 auto;
+  padding: 4em 0 1em;
+}
+
+/* Rounded corners in footer */
+.bottom {
+  height: 16px;
+  clear: both;
+}
+
+.bottom span {
+  position: relative;
+  height: 16px;
+  display: inline-block;
+  line-height: 16px;
+}
+
+.bottom .fl {
+  float: left;
+  background: url('images/bg-footer-bl.png') no-repeat left bottom;
+  width: 2.5%;
+}
+
+.bottom .middle {
+  float: left;
+  width: 95%;
+  z-index: 99;
+}
+
+.bottom .fr {
+  background: url('images/bg-footer-br.png') no-repeat right bottom;
+  width: 2.5%;
+  float: left;
+  z-index: 100;
+}
+
+#sidebar-left,
+#sidebar-right {
+  overflow: hidden;
+}
+
+/* Both Sidebars */
+.both #sidebar-left {
+  width: 20%;
+  float: left;
+}
+
+.both #main {
+  width: 60%;
+  float: left;
+}
+
+.both #sidebar-right {
+  width: 20%;
+  float: right;
+}
+
+/* Left Sidebar */
+.left #sidebar-left {
+  width: 25%;
+  float: left;
+}
+
+.left #main {
+  width: 75%;
+  float: left;
+}
+
+/* Right Sidebar */
+.right #main {
+  width: 75%;
+  float: left;
+}
+
+.right #sidebar-right {
+  width: 25%;
+  float: right;
+}
+
+/* No Sidebar */
+.no-sidebar #main {
+  width: 95%;
+  margin: 0 auto;
+}
+
+/* General */
+.container {
+  clear: both;
+}
+
+#content {
+  clear: both;
+}
+
+.push {
+  clear: both;
+  height: 5em;
+}
+
+.main-inner {
+  padding: 10px 20px;
+}
+
+.sidebar .inner {
+  padding: 10px 12px;
+}
+
+#content-top,
+#content-bottom {
+  clear: both;
+  margin: 25px 0;
+}
+
+/* height must match .push margin top vertical total */
+#page-title {
+  display: block;
+  padding-right: 16px;
+  text-align: right;
+  line-height: 2em;
+}
+
+#header #site-name {
+  display: block;
+  font-size: 3.7em;
+  line-height: normal;
+  margin-left: 15px;
+  padding: 10px 0;
+}
+
+#header .logo img {
+  display: block;
+  float: left;
+  margin: 5px 10px 10px 5px;
+}
+
+#header #slogan {
+  clear: left;
+  float: left;
+  font-style: italic;
+  margin: 0 0 0 15px;
+}
+
+/* Primary Navigation (sources)
+ * Administration Menu
+ * http://drupal.org/project.admin_menu
+ * Sons of suckerfish
+ * http://www.htmldog.com/articles/suckerfish
+ */
+#navigation {
+  width: 100%;
+  clear: both;
+  min-height: 3em;
+  border-bottom: 1px solid;
+}
+
+#navigation ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 3em;
+  z-index: 1000;
+  position: static;
+}
+
+#navigation ul a {
+  display: block;
+  margin: 0;
+  padding: 0 1.25em;
+  text-decoration: none;
+}
+
+#navigation ul ul {
+  border: 1px solid;
+  border-top: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 15em;
+}
+
+#navigation li {
+  float: left;
+  line-height: 3em;
+  margin: 0 !important;
+  padding: 0;
+  list-style-image: none;
+  list-style-type: none;
+  border-left: 1px solid;
+}
+
+#navigation li.expanded  {
+  padding-right: .65em;
+  background-image: none;
+}
+
+#navigation li.expanded:hover {
+  padding-right: 0;
+}
+
+#navigation li.expanded:hover a {
+  padding: 0 1.9em 0 1.25em;
+}
+
+#navigation li:first-child {
+  border-left: none;
+}
+
+#navigation li li:first-child {
+  border: none;
+}
+
+#navigation li li {
+  border: 0;
+  line-height: 2.65em;
+}
+
+/* second-level lists */
+#navigation li ul {
+  position: absolute;
+  margin: 0;
+  width: 15em;
+  left: -999em;
+}
+
+/* third-and-above-level lists */
+#navigation li li.expanded ul {
+  margin: -2.65em 0 0 15em!important;
+}
+
+#navigation li:hover ul ul,
+#navigation li:hover ul ul ul,
+#navigation li:hover ul ul ul ul,
+#navigation li:hover ul ul ul ul ul,
+#navigation li.sfhover ul ul,
+#navigation li.sfhover ul ul ul,
+#navigation li.sfhover ul ul ul ul,
+#navigation li.sfhover ul ul ul ul ul {
+  left: -999em;
+}
+
+/* lists nested under hovered list items */
+#navigation li:hover ul,
+#navigation li li:hover ul,
+#navigation li li li:hover ul,
+#navigation li li li li:hover ul,
+#navigation li li li li li:hover ul,
+#navigation li.sfhover ul,
+#navigation li li.sfhover ul,
+#navigation li li li.sfhover ul,
+#navigation li li li li.sfhover ul,
+#navigation li li li li li.sfhover ul {
+  left: auto;
+}
+
+/* Layout options
+ * Alignment from theme settings */
+/* Credit: CSS Play, Centering Floats: http://www.cssplay.co.uk/menus/centered.html */
+
+#navigation del {
+  text-decoration: none;
+}
+
+#navigation .wrap-center {
+  margin: 0 auto;
+  display: table;
+}
+
+#navigation .wrap-left {
+  float: left;
+}
+
+#navigation .wrap-right {
+  float: right;
+}
+
+/*------------------------------------------------------------------------
+ * GENERAL
+ *----------------------------------------------------------------------*/
+
+/* Breadcrumbs */
+.breadcrumb {
+  clear: both;
+  margin: 0 0 10px;
+  padding: 5px 0 0;
+}
+
+/* Mission */
+.mission {
+  border: 1px solid;
+  margin: 5px 0 15px 0;
+  padding: 15px;
+}
+
+/* Node Title */
+#main h1.title {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  letter-spacing: -1px;
+  line-height: 140%;
+  margin: 0;
+}
+
+/*------------------------------------------------------------------------
+ * CONTENT REGIONS (content_top, content_bottom)
+ *----------------------------------------------------------------------*/
+ 
+#main div.block {
+  border: 1px dotted;
+  margin: 10px 0 20px 0;
+  padding: 10px;
+}
+
+#main .block .title {
+  font-size: 1.6em;
+}
+
+#main .block .content {
+  padding: 10px;
+}
+
+/*------------------------------------------------------------------------
+ * NODES
+ *----------------------------------------------------------------------*/
+
+.node {
+  clear: both;
+  display: block;
+  margin: 0 0 30px;
+  padding: 10px;
+}
+
+.node-sticky {
+  border: 1px dotted;
+}
+
+.node .info p {
+  margin: 0;
+  padding: 0;
+}
+
+.node .info .btn-tags {
+  float: left;
+  position: relative;
+}
+
+.node .info .picture {
+  float: left;
+  margin: 0 10px 5px 0;
+}
+
+.node .content {
+  padding: 5px 0 15px;
+  clear: both;
+}
+
+.node .content dl {
+  border-bottom: 1px solid;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.node .content dt {
+  border: 1px solid;
+  font-weight: 700;
+  padding: 4px 0 4px 8px;
+}
+
+.node .content dd {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  margin: 0;
+  padding: 10px;
+}
+
+.node .content ol {
+  list-style-type: decimal;
+  margin: 0 0 0 35px;
+}
+
+.node .content ul {
+  list-style-type: disc;
+  margin: 0 0 0 35px;
+}
+
+.node .content li {
+  padding: 2px 0;
+}
+/*------------------------------------------------------------------------
+ * Button style node links
+ *-----------------------------------------------------------------------*/
+.btn-links,
+.btn-tags {
+  clear: both;
+  margin: 10px 0 0 0;
+}
+
+.buttons {
+  padding:0;
+  margin:0;
+  list-style:none;
+  display: inline;
+}
+
+.buttons li {
+  display: table-cell;
+  padding: 0;
+} 
+
+.buttons a.button {
+  margin: 0 2px;
+  float: left;
+  white-space: nowrap;
+  line-height: 1.5em;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+.buttons em {
+  font-style: normal;
+  float: left;
+  overflow: visible;
+  line-height: 1.5em;
+  font-size: .95em;
+  margin: .3em .2em -.3em .2em;
+  display: block;
+}
+
+.buttons div.button {
+  background: none;
+  margin: 0 2px;
+  float: left;
+  white-space: nowrap;
+  line-height: 1.5em;
+  text-decoration: none;
+  text-transform: lowercase;
+}
+
+.buttons div.button div {
+  font-style: normal;
+  float: left;
+  overflow: visible;
+  line-height: 1.5em;
+  font-size: .95em;
+  margin: .3em .2em -.3em .2em;
+  display: inline-block;
+}
+
+.buttons a.button:hover {
+  background-position: top left;
+}
+
+.buttons a.button:hover em {
+  cursor: pointer;
+}
+
+.buttons div a:hover {
+  cursor: pointer;
+}
+
+.buttons span {
+  height: 7px;
+  width: 7px;
+  float: left;
+  position: relative;
+}
+
+.buttons .tl {
+  background-position: top left;
+}
+
+.buttons .tr {
+  background-position: top right;
+  float: right;
+  position: static;
+}
+
+.buttons .bl {
+  background-position: bottom left;
+  clear: left;
+  overflow: hidden;
+}
+
+.buttons .br {
+  background-position: bottom right;
+  clear: right;
+  float: right;
+  position: static;
+  overflow: hidden;
+}
+
+/* Tag buttons */
+.btn-tags {
+  clear: right;
+}
+
+.btn-tags ul.links li {
+  padding: 0 .25em;
+}
+
+.btn-tags  a.button {
+  background-position: top left;
+}
+
+.btn-tags a.button:hover {
+  background-position: bottom left;
+}
+
+.btn-tags em {
+  font-size: .85em;
+  overflow: visible;
+}
+
+.btn-tags a.button:hover em {
+  cursor: pointer;
+}
+ 
+/* Comments */
+.box {
+  clear: both;
+}
+
+.box .title {
+  display: block;
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  line-height: 2em;
+}
+
+#comments {
+  padding: 15px 10px;
+}
+
+#comments .box {
+  clear: both;
+  margin: 25px 0 0 0;
+}
+
+.comment {
+  border: 1px solid;
+  clear: both;
+  display: block;
+  margin: 0 0 15px 0;
+}
+
+.comment .title {
+  display: block;
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  line-height: 2em;
+  text-indent: 8px;
+}
+
+.comment .title .new {
+  padding-left: 4px;
+}
+
+.comment .info {
+  clear: both;
+  display: block;
+  font-size: 0.95em;
+  padding: 5px 10px;
+}
+
+.comment .info .picture {
+  display: inline;
+  margin: 0 10px;
+}
+
+.comment .info .picture img {
+  display: inline;
+  padding: 0 0 10px 0;
+  vertical-align: middle;
+}
+
+.comment .content {
+  padding: 5px 10px;
+}
+
+.comment .links {
+  clear: both;
+  display: block;
+  float: none;
+  height: auto;
+  line-height: 45px;
+  margin: 0;
+  padding: 0 0 0 10px;
+}
+
+.sidebar .title {
+  display: block;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-align: left;
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
+.sidebar .block .content .title {
+  background: none!important;
+  border: none!important;
+}
+
+.sidebar .block {
+  overflow: hidden;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+.sidebar ul.menu {
+  border-bottom: 1px solid;
+}
+
+.sidebar ul.menu ul,
+.sidebar ul.menu ul ul {
+  border: none;
+}
+
+.sidebar ul.menu li {
+  list-style: none;
+  list-style-image: none;
+  list-style-position: outside;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar ul.menu a,
+.sidebar ul.menu a:visited {
+  background: #fff;
+  border-bottom: 1px solid;
+  display: block;
+  line-height: 2.5em;
+  text-transform: capitalize;
+}
+
+.sidebar ul.menu li:last-child a {
+  border-bottom: 0;
+}
+
+.sidebar ul.menu li li:last-child a {
+  border-bottom: solid 1px;
+}
+
+.sidebar ul.menu li a {
+  text-indent: 10px;
+}
+
+.sidebar ul.menu li li a {
+  text-indent: 18px;
+}
+
+.sidebar ul.menu li li li a {
+  text-indent: 30px;
+}
+
+.sidebar ul.menu ul {
+  background: none;
+  padding-top: 0;
+}
+
+.sidebar .item-list ul {
+  list-style: disc outside;
+  margin: 0 0 0 7px;
+}
+
+.sidebar .item-list ul li {
+  list-style-type: disc;
+  margin: 0;
+}
+
+.sidebar .content {
+  border: 1px solid;
+  padding: 10px;
+}
+
+.sidebar .btype-menu .content {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-top: 1px solid;
+  padding: 0;
+}
+
+.sidebar #user-login-form {
+  padding: 1em;
+  text-align: left;
+}
+
+/* User Profile */
+.profile .picture {
+  float: left;
+}
+
+/* Feed Icon */
+.left #feed-icon {
+  text-align: right;
+  padding: 0 5px 0 0;
+  clear: both;
+}
+
+.right #feed-icon {
+  text-align: left;
+  padding: 0 0 0 5px;
+  clear: both;
+}
+
+/* Overrides */
+ul.menu,ul.menu ul,ul.menu ul ul,ul.menu li,ul.menu li li,ul.menu li li li {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+li a.active {
+  font-weight: 700;
+}
+
+
+/* -------------------------------------------------------------------------
+ * FORMS
+ * ---------------------------------------------------------------------- */
+
+form {
+  clear: both;
+  font-size: 1em;
+}
+
+.form-item {
+  overflow: hidden;
+  margin: .35em 0;
+}
+
+.form-item a {
+  text-decoration:none;
+}
+
+/* Labels/Descriptions */
+.form-item .description {
+  font-size: .95em;
+}
+
+.form-item label,
+.field-label {
+  text-transform: uppercase;
+  display: block;
+  font-size: 1em;
+}
+
+ul.tips li { /* input filter tips */
+  list-style: square;
+  list-style-position: outside;
+  margin: 0 0 0 25px;
+  font-size: .95em;
+}
+
+/* Errors/Markers */
+.messages, div.status, div.warning {
+  border: 1px solid;
+  margin: 0 0 10px 0;
+  padding: 45px 10px 10px!important;
+}
+
+.form-item .error {
+  border: 1px solid;
+}
+
+/* Inputs */
+.form-radio,
+.form-checkbox,
+.form-file,
+.form-select, select,
+.form-text, input,
+.form-textarea, textarea {
+  font-size: 1em;
+}
+
+.form-radio,
+.form-checkbox {
+  border: none;
+}
+
+.form-select option, select option {
+  padding: 1px;
+}
+
+.form-text,
+.form-textarea {
+  padding: 4px 2px;
+  border: solid 1px;
+}
+
+.form-autocomplete {
+  padding: 2px;
+}
+
+/* Radio/Checkbox Labels */
+.form-item label.option {
+  display: inline;
+  font-weight: normal;
+  text-transform: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Fieldsets */
+fieldset {
+  padding: 4px 10px;
+  margin: 10px 0;
+  border: 1px solid;
+}
+
+fieldset legend a,
+fieldset legend a:active,
+fieldset legend a:focus,
+fieldset legend a:visited {
+  text-decoration: none;
+}
+
+fieldset fieldset {
+  border: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+fieldset legend {
+  font-size: .95em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+html.js fieldset.collapsible .fieldset-wrapper {
+  overflow: auto!important;
+}
+
+.container-inline .form-item {
+  display:inline;
+}
+
+/* Form item wrappers */
+.form-checkboxes, .form-radios {
+  margin: 1em 0 1em 0;
+}
+
+.form-checkboxes .form-item, .form-radios .form-item {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+/*------------------------------------------------------------------------
+TABS 
+------------------------------------------------------------------------*/
+
+.tab-wrapper {
+  clear: both;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.tabs-primary {
+  border-bottom: 1px solid;
+  height: 3.2em;
+  width: 100%;
+}
+
+.tabs-primary ul {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.tabs-primary li {
+  float: left;
+  list-style: none;
+  font-weight: bold;
+  line-height: 3em;
+  margin: .35em 0 0 0;
+}
+
+.tabs-primary li.active {
+  line-height: 3.5em;
+  margin: 0;
+}
+
+.tabs-primary li a,
+.tabs-primary li a:visited {
+  float: left;
+  display: block;
+  padding: 0 8px;
+  text-decoration: none;
+  line-height: 3em;
+  border-right: 1px solid;
+  border-top: 1px solid;
+  font-size: .95em;
+}
+
+.tabs-primary li:first-child a {
+  border-left: solid 1px;
+}
+
+.tabs-primary li.active a,
+.tabs-primary li.active a:visited {
+  line-height: 3.35em;
+  font-weight: bold;
+  border: 1px solid;
+}
+
+.tabs-primary li a:hover,
+.tabs-primary li.active a:hover {
+  text-decoration: none;
+}
+
+.tabs-primary li a:focus,
+.tabs-primary li a:active {
+  outline: none;
+}
+
+/* ---- Second Level ---- */
+
+.tabs-secondary {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin: -2px 0 0 0;
+}
+
+.tabs-secondary ul {
+  clear: left;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs-secondary li {
+  font-size: .95em;
+  float: left;
+  list-style: none;
+}
+
+.tabs-secondary li a,
+.tabs-secondary li a:visited {
+  float: left;
+  display: block;
+  padding: 0px 8px;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 2em;
+  white-space: nowrap;
+}
+
+.tabs-secondary li a:hover,
+.tabs-secondary li a.active {
+  text-decoration: none;
+}
+
+/*------------------------------------------------------------------------
+ * PAGERS
+ *-----------------------------------------------------------------------*/
+ul.pager {
+  clear: both;
+  margin: 15px 0;
+}
+
+.pager a, .pager a:visited {
+  background: #fff;
+  padding: 0.5em;
+  border:  solid 1px;
+  text-decoration: none!important;
+}
+
+.pager a:hover {
+  padding: 0.5em;
+  border: solid 1px;
+}
+
+.item-list .pager li {
+  margin: 0 4px 0 0;
+  padding: 0;
+}
+
+.item-list .pager li.pager-current {
+  padding: 0.5em;
+  margin:  0 4px 0 0;
+  border: solid 1px;
+}
+
+/*------------------------------------------------------------------------
+ * FORUM POSTS
+ *-----------------------------------------------------------------------*/
+ /* Common post classes */
+
+.forum-post {
+  clear: both;
+  width: 99%;
+  float: left;
+  position: relative;
+}
+
+.forum-wrapper-left {
+  float: left;
+  width: 23%;
+  overflow: hidden;
+}
+
+.forum-wrapper-right {
+  float:left;
+  overflow: hidden;
+  width: 76.8%;
+}
+.with-picture {
+  min-height: 225px;
+}
+
+.without-picture {
+  min-height: 145px;
+}
+
+.forum-post ul,
+.forum-post li {
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.forum-post .content,
+.forum-post-reply .content {
+  float: left;
+  clear: left;
+  padding: .5em 1em;
+  overflow:hidden;
+  width:96%;
+}
+
+.forum-post .meta-post {
+  float: left;
+  clear: left;
+  text-align: right;
+  padding: .25em 1em;
+  width: 96.5%;
+  overflow:hidden;
+}
+
+
+.forum-post-reply .meta-post {
+  float: left;
+  clear: left;
+  padding: .25em 1em;
+  width: 96%;
+  overflow:hidden;
+}
+
+.forum-post div.links {
+  float: left;
+  clear: both;
+  width:100%; /* width required for IE */
+}
+
+.forum-post ul.links {
+  padding: 0;
+  margin:0;
+}
+
+.forum-post ul.links li {
+  float: left;
+  padding: 0px 5px;
+}
+
+.clear {
+  clear:both;
+}
+
+/* Top Posts Only */
+
+.forum-post-top .meta-post li.date {
+  text-align:right;
+}
+
+/* Replies only */
+
+.forum-post-reply {
+  clear:both;
+  float:left;
+}
+
+.forum-post-reply .meta-post li {
+  float:left;
+}
+
+.forum-post-reply .meta-post li.date {
+  text-align:left;
+  width: 75%;
+}
+
+.forum-post-reply .meta-post li.comment-link {
+  text-align:right!important;
+  width: 25%;
+}
+
+/* Reply/Comment Form */
+.forum-reply-form {
+  clear:both;
+  float:left;
+  position:relative;
+}
+
+/* Drupal default overrides */
+
+#comments {
+  padding:0!important;
+  clear:both;
+}
+
+#comments a.active {
+  font-weight:400;
+}
+
+#forum ul {
+  clear:both;
+  position:relative;
+}
+
+#forum td.icon {
+  padding:10px;
+}
+
+#forum .name a {
+  padding:5px;
+  font-size:1.3em;
+}
+
+#forum .forum-indented .name {
+  font-size:1.1em;
+  border-bottom:none;
+  padding-left:25px;
+}
+
+#forum .description {
+  font-size:.95em;
+}
+
+#forum .forum-indented .description {
+  padding-left:25px;
+}
+
+#forum table + table .last-reply,
+#forum table + table .replies {
+  background:none;
+}
+
+td.icon img {
+  display:block;
+  margin-right:8px;
+}
+
+/*------------------------------------------------------------------------
+ * MODULE SUPPORT
+ *-----------------------------------------------------------------------*/
+/* administration menu */
+#admin-menu {
+  font-size: .95em;
+}
+
+/* update status */
+.versions table,
+.versions td,
+.versions th {
+  border: none;
+  overflow: auto;
+}
+
+/* coder */
+.coder-warning pre {
+  white-space: normal;
+}
+
+/* devel */
+.dev-query {
+  clear: both;
+  background: #fff;
+  padding: 25px;
+  text-align: left;
+  font-size: 12px;
+  border-top: solid 1px #bbb;
+}
+
+.dev-query a, .dev-query a:visited {
+  text-decoration: none;
+}
+
+.dev-query td {
+  padding: 3px;
+  font-size: .95em;
+}
+
+.dev-query span.marker,
+.dev-query td.marker {
+  background: #c00;
+  color: #fff;
+  border-color: #ddd;
+}
+
+.dev-query span.marker {
+  padding: 3px;
+}
+
+.dev-query td.marker:hover {
+  background: #c00;
+}
+
+/* polls */
+.sidebar .block-poll .content .choices,.sidebar .block-poll .content .title {
+  background: none;
+  font-size: 1.6em;
+  letter-spacing: -1px;
+  text-indent: 0;
+  font-weight: 400;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.sidebar .block-poll .content .choices .form-item label {
+  font-weight: 400;
+  margin-bottom: 10px;
+  padding: 0;
+  text-transform: none;
+}
+
+.sidebar .block-poll .content .choices .form-item .form-radios label {
+  letter-spacing: normal;
+  font-size: .65em;
+}
+
+.sidebar .block-poll .content ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar .block-poll .content ul li {
+  display: block;
+  padding: 0;
+}
+
+.sidebar .block-poll .content ul.links li a {
+  display: block;
+  line-height: 2em;
+}
+
+.sidebar .block-poll div.links {
+  padding: 5px 0;
+}
+
+.sidebar .form-item {
+  margin: 0 0 5px;
+}
+.sidebar .poll .vote-form {
+  text-align:left;
+}
+
+.poll .bar {
+  height: 1.5em;
+  padding: 0;
+}
+
+.poll .bar .foreground {
+  height: 1.5em;
+}
+
+.poll .vote-form .choices {
+  display: table;
+  margin: 0;
+  text-align: left;
+}
+
+.vote-form,
+.poll .total {
+  text-align: left;
+}
+
+/* External Link */
+.sidebar ul.menu a.ext {
+  padding-right: 0;
+}
+
+/* Administer page */
+div.admin .left {
+  width:45.5%;
+}
+
+div.admin .right {
+  width:45.5%;
+}
+
+.admin-list dt {
+  border-bottom: 1px solid;
+}
+
+.admin-list dd {
+  font-size: 0.95em;
+  margin: 0;
+  padding: 5px 0 15px;
+}
+
+/* blocks page */
+#blocks td.block {
+  border-top-style: none;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-left-style: none;
+  margin: 0;
+  padding: 2px 2px 2px 8px;
+}
+
+/* open id link */
+.openid-link {
+  text-indent: 20px;
+}
+
+/* TinyMCE */
+body.mceContentBody {
+  background: #fff;
+}
+
+/*------------------------------------------------------------------------
+ * D6 SPECIFIC
+ *-----------------------------------------------------------------------*/
+ #edit-body-wrapper {
+   width: 100%;
+   clear: both;
+ }
