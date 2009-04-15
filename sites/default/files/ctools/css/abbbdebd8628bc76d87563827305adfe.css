@@ -1,0 +1,59 @@
+
+.t-edge, .b-edge, .l-edge, .r-edge, .wrap-corner {
+  position: relative;
+  /* hasLayout -1 ? For IE only */
+  zoom: 1;
+}
+.rounded_corner .t-edge {
+  background: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/shadow-t.png) repeat-x 0 top;
+  font-size: 1px;
+}
+.rounded_corner .b-edge {
+  background: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/shadow-b.png) repeat-x 0 bottom;
+  font-size: 1px;
+}
+.rounded_corner .l-edge {
+  background: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/shadow-l.png) repeat-y 0 0;
+}
+.rounded_corner .r-edge {
+  background: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/shadow-r.png) repeat-y right 0;
+}
+.rounded_corner .wrap-corner {
+  background: #fff !important;
+}
+.rounded_corner .wrap-corner .t-edge, .rounded_corner .wrap-corner .b-edge {
+  height: 11px;
+}
+.rounded_corner .wrap-corner .l, .rounded_corner .wrap-corner .r {
+  position: absolute;
+  top: 0;
+  height: 11px;
+  width: 11px;
+  background-image: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/corner-bits.png);
+}
+.rounded_corner .wrap-corner .l {
+  left: 0;
+}
+.rounded_corner .wrap-corner .r {
+  right: 0;
+  background-position: -11px 0;
+}
+.rounded_corner .wrap-corner .b-edge .l {
+  background-position: 0 -11px;
+}
+.rounded_corner .wrap-corner .b-edge .r {
+  background-position: -11px -11px;
+}
+.rounded_corner .wrap-corner .r-edge {
+  padding: 5px 24px;
+}
+.rounded_corner div.admin-links {
+  margin-top: -14px;
+  margin-left: -12px;
+}
+
+.rounded_corner .panel-separator {
+  background: url(/~erik/hackunteers.org/sites/all/modules/panels/plugins/styles/corners/shadow-b.png) repeat-x 0 center;
+  font-size: 1px;
+  height: 30px;
+}

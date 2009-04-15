@@ -1,0 +1,19 @@
+* {
+	color: #000 !important;
+	background: #fff;
+}
+a, a:link, a:visited {
+	text-decoration: none;
+	font-weight: normal;
+}
+#leftCol, #rightCol, .search, #navlist, #subnavlist, .tabs, .breadcrumb, a.feed-icon {
+	display: none;
+}
+#pageWrap, #outerColumn, #innerColumn, #soContainer, #content {
+	border: none !important;
+	margin: 0;
+	padding: 0;
+}
+#soContainer, #content {
+	float: none;
+}

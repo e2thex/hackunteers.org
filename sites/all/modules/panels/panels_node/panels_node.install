@@ -1,5 +1,5 @@
 <?php
-// $Id: panels_node.install,v 1.3 2008/08/04 23:13:47 merlinofchaos Exp $
+// $Id: panels_node.install,v 1.3.4.1 2009/02/14 19:36:17 merlinofchaos Exp $
 
 /**
  * Implementation of hook_schema().
@@ -29,6 +29,7 @@ function panels_node_schema_1() {
       ),
       'did' => array(
         'type' => 'int',
+        'not null' => TRUE,
       ),
     ),
     'primary key' => array('did'),

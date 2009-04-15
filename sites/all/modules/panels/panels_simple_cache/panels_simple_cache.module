@@ -1,5 +1,5 @@
 <?php
-// $Id: panels_simple_cache.module,v 1.3 2008/08/31 23:28:25 sdboyer Exp $
+// $Id: panels_simple_cache.module,v 1.3.4.1 2009/03/27 22:33:09 merlinofchaos Exp $
 
 
 /**
@@ -53,6 +53,10 @@ function panels_simple_cache_panels_cache() {
     'cache clear' => 'panels_simple_cache_clear_cache',
     'settings form' => 'panels_simple_cache_settings_form',
     'settings form submit' => 'panels_simple_cache_settings_form_submit',
+    'defaults' => array(
+      'lifetime' => 15,
+      'granularity' => 'none',
+    ),
   );
   return $cache;
 }
@@ -71,7 +75,7 @@ function panels_simple_cache_get_cache($conf, $display, $args, $contexts, $pane 
     return FALSE;
   }
 
-  return unserialize($cache->data);
+  return $cache->data;
 }
 
 /**

@@ -1,0 +1,12 @@
+name = Foliage
+description = Table-less, source-ordered and multi-column theme - maintained by FreeCmsDesigns.com.
+core = 6.x
+engine = phptemplate
+stylesheets[all][] = style.css
+stylesheets[print][] = print.css
+; Information added by drupal.org packaging script on 2008-08-25
+version = "6.x-1.5"
+core = "6.x"
+project = "foliage"
+datestamp = "1219689314"
+

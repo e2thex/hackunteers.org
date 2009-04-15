@@ -1,0 +1,37 @@
+name = Analytic
+description = Theme for communities, blogs and online media provided by <a href="http://RussianWebStudio.com">RussianWebStudio.com</a>. <br /><strong>Important Note:</strong> The right column is disabled by default in admin section, as sometimes the content of admin section is wider than central column, and the content is cut. You can turn on/off right(or left) column for admin section in theme configuration.
+
+
+
+core = 6.x
+engine = phptemplate
+
+
+regions[left] = left sidebar
+regions[right] = right sidebar
+regions[top_content_block_right] = top content block right RED
+regions[top_content_block_left] = top content block left RED
+regions[content_top] = content top
+regions[content] = content
+regions[content_bottom] = content bottom
+regions[content_block_left] = content bottom block left
+regions[content_block_right] = content bottom block right
+regions[content_after_blocks] = content after bottom blocks
+regions[footer] = footer
+features[] = name
+features[] = logo
+features[] = slogan
+features[] = mission
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = search
+features[] = favicon
+features[] = primary_links
+
+
+; Information added by drupal.org packaging script on 2009-01-31
+version = "6.x-1.3"
+core = "6.x"
+project = "analytic"
+datestamp = "1233438903"
+

@@ -1,4 +1,4 @@
-/* $Id: flexible.css,v 1.1.2.1 2008/12/16 21:27:58 merlinofchaos Exp $ */
+/* $Id: flexible.css,v 1.1.2.3 2009/03/26 17:06:47 merlinofchaos Exp $ */
 
 .panel-flexible { 
 /*  overflow: hidden;  */
@@ -6,32 +6,6 @@
 
 .panel-flexible {
   width: 99.9%;
-}
-
-.panel-flexible .panel-col { 
-  float: left; 
-  padding: 0;
-  margin: 1px 0 .5em 0;
-}
-
-.panel-flexible .panel-row {
-  padding: 0;
-  margin: 0;
-  padding-bottom: .5em;
-  width: 99.9%;
-}
-
-.panel-flexible .panel-col-first .inside { 
-  padding-right: .5em;
-}
-
-.panel-flexible .panel-col-inside .inside { 
-  padding-right: .5em;
-  padding-left: .5em;
-}
-
-.panel-flexible .panel-col-last .inside { 
-  padding-left: .5em;
 }
 
 #panels-edit-display .panel-pane,
@@ -43,16 +17,48 @@
   margin: 0 0 1em 0;
 }
 
-/* sidebar css */
-div.panel-flexible div.panel-flexible-sidebars div.panel-sidebar { 
+/* ---- */
+
+.panel-flexible {
+  width: 99.9%;
+}
+
+.panels-flexible-region { 
   float: left; 
-  position: relative; 
+  padding: 0;
+  /* margin: 1px 0 .5em 0; */
+  overflow: hidden;
 }
 
-* html div.panel-sidebar-left div.inside {
-  background-color: transparent;
+.panels-flexible-row {
+  padding: 0;
+  margin: 0;
+  padding-bottom: .5em;
+  width: 99.9%;
 }
 
-div.panel-flexible div.panel-flexible-sidebars div.panel-sidebar-middle { 
-  width: 100%; 
+.panels-flexible-row-last {
+  padding-bottom: 0;
+}
+
+.panels-flexible-region-inside {
+  padding-right: .5em;
+  padding-left: .5em;
+}
+
+.panesl-flexible-region-inside-first {
+  padding-left: 0;
+}
+
+.panels-flexible-region-inside-last {
+  padding-right: 0;
+}
+
+#panels-edit-display .panel-pane,
+#panels-edit-display .helperclass {
+  margin: .5em;
+}
+
+.panel-flexible .panel-separator {
+  margin: 0 0 1em 0;
 }

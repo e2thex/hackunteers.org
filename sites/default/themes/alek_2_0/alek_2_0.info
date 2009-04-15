@@ -1,0 +1,19 @@
+name = Alek 2.0
+description = Tableless, multi-column, fixed width theme
+version = 6.x-dev
+core = 6.x
+engine = phptemplate
+screenshot = screenshot.png
+stylesheets[all][] = style.css
+regions[sidebar_left] = Left sidebar
+regions[sidebar_right] = Right sidebar
+regions[content] = Content
+regions[footer_left] = Footer left
+regions[footer_middle] = Footer middle
+regions[footer_right] = Footer right
+; Information added by drupal.org packaging script on 2008-01-14
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "alek_2_0"
+datestamp = "1200268836"
+

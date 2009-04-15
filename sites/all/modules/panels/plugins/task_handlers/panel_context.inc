@@ -1,5 +1,5 @@
 <?php
-// $Id: panel_context.inc,v 1.1.2.7 2009/01/29 22:01:24 merlinofchaos Exp $
+// $Id: panel_context.inc,v 1.1.2.10 2009/03/26 20:17:22 merlinofchaos Exp $
 
 /**
  * @file
@@ -28,7 +28,6 @@ function panels_panel_context_delegator_task_handlers() {
     'add forms' => array(
       'criteria' => t('Selection criteria'),
       'choose' => t('Choose layout'),
-      'layout-settings' => t('Configure layout'),
       'content' => t('Panel content'),
     ),
     'edit forms' => array(
@@ -38,7 +37,6 @@ function panels_panel_context_delegator_task_handlers() {
       'context' => t('Contexts'),
       'layout' => t('Change layout'),
       'move' => '', // no title makes it a 'hidden' edit form.
-      'layout-settings' => t('Layout settings'),
     ),
     'forms' => array(
       'settings' => array(
@@ -57,14 +55,6 @@ function panels_panel_context_delegator_task_handlers() {
         ),
         'form id' => 'panels_panel_context_edit_move',
         'submit' => 'panels_change_layout_submit',
-      ),
-      'layout-settings' => array(
-        'include' => array(
-          drupal_get_path('module', 'panels') . '/includes/display-layout-settings.inc',
-        ),
-        'form id' => 'panels_panel_context_edit_layout_settings',
-        'validate' => 'panels_edit_layout_settings_form_validate',
-        'submit' => 'panels_edit_layout_settings_form_submit',
       ),
       'content' => array(
         'include' => array(
@@ -97,6 +87,41 @@ function panels_panel_context_delegator_task_handlers() {
 }
 
 /**
+ * Get the display for a task handler.
+ *
+ * There are three methods that the display can be found.
+ * - In the database. $handler->conf['did'] will be set in this case,
+ *   and $handler->conf['display'] won't be.
+ * - In $handler->conf['display'], with $handler->conf['did'] empty. This
+ *   will be true for a default/imported task handler as well as a handler
+ *   that has just been created but has not yet been saved.
+ * - in $handler->conf['display'] with $handler->conf['did' populated. This
+ *   simply means that the display has been modified and is awaiting
+ *   save. The modified one should always be used for editing purposes.
+ * - If none of the above is true, then a new display needs to be created
+ *   for the handler and pla
+ */
+function &panels_panel_context_get_display(&$handler) {
+  if (isset($handler->conf['display'])) {
+    return $handler->conf['display'];
+  }
+
+  if (isset($handler->conf['did'])) {
+    $handler->conf['display'] = panels_load_display($handler->conf['did']);
+
+    // Check for a valid display. If no valid display can be loaded, something
+    // is wrong and we'll create a new one.
+    if (!empty($handler->conf['display'])) {
+      return $handler->conf['display'];
+    }
+  }
+
+  $handler->conf['display'] = panels_new_display();
+
+  return $handler->conf['display'];
+}
+
+/**
  * Check selection criteria and, if passed, render the contexts.
  *
  * We must first check to ensure the node is of a type we're allowed
@@ -115,7 +140,8 @@ function panels_panel_context_render($handler, $base_contexts) {
   }
 
   // Load the display
-  $display = drupal_clone($handler->conf['display']);
+  $display = panels_panel_context_get_display($handler);
+
   $display->context = $contexts;
   $display->css_id = $handler->conf['css_id'];
 
@@ -164,17 +190,11 @@ function panels_panel_context_title($handler, $task, $subtask_id) {
  * to make sure that old, dirty CSS cache gets removed.
  */
 function panels_panel_context_save(&$handler, $update) {
-  // @todo Save the display
-
-  // Scrub the display.
-  if (isset($handler->conf['display']->context)) {
-    unset($handler->conf['display']->context);
-  }
-
-  foreach ($handler->conf['display']->content as $id => $pane) {
-    if (isset($pane->context)) {
-      unset($handler->conf['display']->content[$id]->context);
-    }
+  // Only save the display if we believe it has been modified.
+  if (isset($handler->conf['display'])) {
+    panels_save_display($handler->conf['display']);
+    $handler->conf['did'] = $handler->conf['display']->did;
+    unset($handler->conf['display']);
   }
 
   // Re-cache the CSS.
@@ -201,8 +221,10 @@ function panels_panel_context_save(&$handler, $update) {
  * very well.
  */
 function panels_panel_context_export(&$handler, $indent) {
-  $display = $handler->conf['display'];
-  unset($handler->conf['display']);
+  $display = panels_panel_context_get_display($handler);
+  if (isset($handler->conf['display'])) {
+    unset($handler->conf['display']);
+  }
 
   $output = panels_export_display($display, $indent);
   $output .= $indent . '$handler->conf[\'display\'] = $display' . ";\n";
@@ -219,7 +241,8 @@ function panels_panel_context_export(&$handler, $indent) {
  */
 function panels_panel_context_admin_summary($handler, $task, $subtask_id) {
   $output = '';
-  $display = drupal_clone($handler->conf['display']);
+
+  $display = panels_panel_context_get_display($handler);
 
   panels_load_include('plugins');
   ctools_include('context');
@@ -246,18 +269,6 @@ function panels_panel_context_admin_summary($handler, $task, $subtask_id) {
   $output .= '<div class="left-container">';
   $output .= $icon . $title . $content;
   $output .= '</div>';
-
-  // This routine dirties the display which can cause problems later.
-  // Scrub it clean.
-  if (isset($handler->conf['display']->context)) {
-    unset($handler->conf['display']->context);
-  }
-
-  foreach ($handler->conf['display']->content as $id => $pane) {
-    if (isset($pane->context)) {
-      unset($handler->conf['display']->content[$id]->context);
-    }
-  }
 
   return $output;
 }
@@ -294,9 +305,7 @@ function panels_panel_context_edit_choose(&$form, &$form_state) {
   // @todo -- figure out where/how to deal with this.
   $form_state['allowed_layouts'] = NULL;
 
-  // Create a dummy display. We don't have one yet, since we haven't chosen
-  // its layout. But we are about to!
-  $form_state['display'] = panels_new_display();
+  $form_state['display'] = &panels_panel_context_get_display($form_state['handler']);
 
   // Tell the Panels form not to display buttons.
   $form_state['no buttons'] = TRUE;
@@ -340,7 +349,7 @@ function panels_panel_context_edit_layout(&$form, &$form_state) {
   // @todo -- figure out where/how to deal with this.
   $form_state['allowed_layouts'] = NULL;
 
-  $form_state['display'] = &$form_state['handler']->conf['display'];
+  $form_state['display'] = &panels_panel_context_get_display($form_state['handler']);
 
   // Tell the Panels form not to display buttons.
   $form_state['no buttons'] = TRUE;
@@ -365,7 +374,9 @@ function panels_panel_context_edit_layout_validate(&$form, &$form_state) {
 function panels_panel_context_edit_layout_submit(&$form, &$form_state) {
   // By default, 'next' takes us to whatever is next, but if they changed
   // the layout we need to interject a form.
-  if ($form_state['values']['layout'] != $form_state['handler']->conf['display']->layout) {
+  $display = &panels_panel_context_get_display($form_state['handler']);
+
+  if ($form_state['values']['layout'] != $display->layout) {
     $form_state['handler']->conf['temp_layout'] = $form_state['values']['layout'];
     $form_state['clicked_button']['#next'] = 'move';
   }
@@ -375,7 +386,7 @@ function panels_panel_context_edit_layout_submit(&$form, &$form_state) {
  * When a layout is changed, the user is given the opportunity to move content.
  */
 function panels_panel_context_edit_move(&$form, &$form_state) {
-  $form_state['display'] = &$form_state['handler']->conf['display'];
+  $form_state['display'] = &panels_panel_context_get_display($form_state['handler']);
   $form_state['layout'] = $form_state['handler']->conf['temp_layout'];
 
   panels_load_include('common');
@@ -396,37 +407,7 @@ function panels_panel_context_edit_move(&$form, &$form_state) {
   // This form is outside the normal wizard list, so we need to specify the
   // previous/next forms.
   $form['buttons']['previous']['#next'] = 'layout';
-  $form['buttons']['next']['#next'] = 'layout-settings';
-}
-
-/**
- * Proxy the layout settings form.
- */
-function panels_panel_context_edit_layout_settings(&$form, &$form_state) {
-  ctools_include('ajax');
-  panels_load_include('display-layout-settings');
-  panels_load_include('plugins');
-
-  $form_state['display'] = &$form_state['handler']->conf['display'];
-//  $display->context = ctools_context_handler_get_all_contexts($form_state['task'], $form_state['subtask_id'], $form_state['handler']);
-
-  // Allow setting of the 'display title'
-  $form_state['display_title'] = TRUE;
-
-  // Tell the Panels form not to display buttons.
-  $form_state['no buttons'] = TRUE;
-
-  // Prevent notices
-  $form_state['finish'] = '';
-
-  $form = array_merge($form, panels_edit_layout_settings_form($form_state));
-
-  // Fix up the extra Save button this page needs. Our needs are a little
-  // different than the normal Panels needs.
-  $form['save']['#next'] = 'layout-settings';
-  $form['save']['#weight'] = -1;
-  $form['buttons']['save'] = $form['save'];
-  unset($form['save']);
+  $form['buttons']['next']['#next'] = 'content';
 }
 
 /**
@@ -440,7 +421,7 @@ function panels_panel_context_edit_content(&$form, &$form_state) {
   ctools_include('context');
   ctools_include('context-task-handler');
 
-  $display = &$form_state['handler']->conf['display'];
+  $display = &panels_panel_context_get_display($form_state['handler']);
 
   $display->context = ctools_context_handler_get_all_contexts($form_state['task'], $form_state['subtask_id'], $form_state['handler']);
   $content_types = panels_common_get_allowed_types('delegator', $display->context);
@@ -454,6 +435,7 @@ function panels_panel_context_edit_content(&$form, &$form_state) {
     $cache = new stdClass();
     $cache->display = $display;
     $cache->content_types = $content_types;
+    $cache->display_title = TRUE;
     panels_cache_set('display', $display->did, $cache);
   }
 

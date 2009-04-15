@@ -1,0 +1,29 @@
+; $Id: amadou.info,v 1.1.2.9 2007/12/07 23:05:15 jwolf Exp $
+
+name = Amadou
+description = XHTML & CSS based multi-column theme with both side bars on the right.
+core = 6.x
+engine = phptemplate
+regions[sidebar_right] = Right sidebar
+regions[sidebar_left] = Left sidebar
+regions[content_top] = Content Top
+regions[content_bottom] = Content Bottom
+regions[footer] = Footer
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+features[] = mission
+features[] = node_user_picture
+features[] = comment_user_picture
+features[] = primary_links
+stylesheets[all][] = style.css
+
+
+
+; Information added by drupal.org packaging script on 2008-01-12
+version = "6.x-1.1"
+core = "6.x"
+project = "amadou"
+datestamp = "1200117602"
+

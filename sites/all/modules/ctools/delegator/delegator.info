@@ -4,9 +4,9 @@ description = Provides a UI and API to select which handlers will perform tasks.
 core = 6.x
 dependencies[] = ctools
 
-; Information added by drupal.org packaging script on 2009-03-28
-version = "6.x-1.x-dev"
+; Information added by drupal.org packaging script on 2009-03-30
+version = "6.x-1.0-alpha3"
 core = "6.x"
 project = "ctools"
-datestamp = "1238198829"
+datestamp = "1238444421"
 

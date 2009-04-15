@@ -3,9 +3,9 @@ name = Chaos tools
 description = A library of helpful tools by Merlin of Chaos.
 core = 6.x
 
-; Information added by drupal.org packaging script on 2009-03-28
-version = "6.x-1.x-dev"
+; Information added by drupal.org packaging script on 2009-03-30
+version = "6.x-1.0-alpha3"
 core = "6.x"
 project = "ctools"
-datestamp = "1238198829"
+datestamp = "1238444421"
 

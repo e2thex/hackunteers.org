@@ -1,4 +1,4 @@
-// $Id: display_editor.js,v 1.4 2008/07/31 00:05:45 merlinofchaos Exp $
+// $Id: display_editor.js,v 1.4.4.1 2009/03/24 18:32:20 merlinofchaos Exp $
 /**
  * @file display_editor.js 
  *
@@ -486,5 +486,15 @@ Drupal.behaviors.PanelsDisplayEditor = function(context) {
   $('input#panels-show-all', context).click(Drupal.Panels.clickShowAll);
 
   Drupal.Panels.bindClickDelete(context);
+
+  /*
+  // Adjust the location of the pane dropdowns.
+  $('div.panel-pane div.ctools-dropdown-container').each(function() {
+    $(this).css({
+      'margin-left':  125) + ' px',
+      'position': 'absolute'
+    });
+  });
+  */
 };
 

@@ -1,5 +1,5 @@
 <?php
-// $Id: plugins.inc,v 1.13.2.2 2008/12/20 21:27:22 merlinofchaos Exp $
+// $Id: plugins.inc,v 1.13.2.6 2009/03/26 23:11:57 merlinofchaos Exp $
 
 /**
  * @file
@@ -14,9 +14,7 @@
  */
 
 /**
- * Master pane access function; combines all the relevant parameters that
- * natively used by the Panels API to determine a pane's access. Called from
- * panels_render_panes().
+ * Determine if a pane is visible.
  *
  * @param $pane
  *   The pane object to test for access.
@@ -24,55 +22,8 @@
  *   The display object containing the pane object to be tested.
  */
 function panels_pane_access($pane, $display) {
-  global $user;
-
-  // Administrator privileges
-  if (user_access('view all pane', $user)) {
-    return TRUE;
-  }
-
-  $role_access = _panels_pane_access_role($pane, $user);
-  $type = panels_get_content_type($pane->type);
-
-  if (!$visibility_check = ctools_plugin_get_function($type, 'visibility check')) {
-    return $role_access;
-  }
-  // Call the content type's custom-defined visibility rendering check.
-  // Pass as much possibly relevant data as possible.
-  $visibility_access = $visibility_check($pane, $display, $user);
-  // Content type marked both access modes to be ANDed together.
-  if (!empty($type['roles and visibility'])) {
-    return ($visibility_access === TRUE && $role_access === TRUE) ? TRUE : FALSE;
-  }
-  // Err on the safe side: if EVERYTHING else has failed, then don't render the pane.
-  return isset($visibility_access) ? $visibility_access : FALSE;
-}
-
-/**
- * Determine role-based access to a panel pane for the current user
- *
- * @param object $pane
- *  The pane object to test.
- * @param object $account
- *  The current $user object.
- *
- * @return bool $role_access
- *  The boolean result of the roles-based segment of the Panels access system.
- */
-function _panels_pane_access_role($pane, $account) {
-  // All views with an empty access setting are available to all roles.
-  if (!$pane->access || !is_array($pane->access)) {
-    return TRUE;
-  }
-
-  // Otherwise, check roles
-  static $roles = array();
-  if (!isset($roles[$account->uid])) {
-    $roles[$account->uid] = array_keys($account->roles);
-    $roles[$account->uid][] = $account->uid ? DRUPAL_AUTHENTICATED_RID : DRUPAL_ANONYMOUS_RID;
-  }
-
-  return array_intersect($pane->access, $roles[$account->uid]) ? TRUE : FALSE;
+  ctools_include('context');
+  return ctools_access($pane->access, $display->context);
 }
 
 /**
@@ -132,28 +83,6 @@ function panels_ct_conf_form($content_type, $subtype, $contexts, $conf) {
     $form['context'] = ctools_context_selector($contexts, $subtype['required context'], isset($conf['context']) ? $conf['context'] : array());
   }
 
-  $style_options = array('default' => t('Default'));
-  foreach (panels_get_styles() as $name => $properties) {
-    if (empty($properties['hidden']) && (!empty($properties['render pane']))) {
-      $style_options[$name] = $properties['title'];
-    }
-  }
-
-  asort($style_options);
-
-  if (empty($conf['style'])) {
-    $conf['style'] = 'default';
-  }
-
-  if ($style_options) {
-    $form['style'] = array(
-      '#type' => 'select',
-      '#title' => t('Pane style'),
-      '#default_value' => $conf['style'],
-      '#options' => $style_options,
-    );
-  }
-
   // Unless we're not allowed to overide the title on this content type, add this
   // gadget to all panes.
   if (empty($content_type['no title override'])) {
@@ -179,26 +108,6 @@ function panels_ct_conf_form($content_type, $subtype, $contexts, $conf) {
       '#prefix' => '<div class="description">',
       '#suffix' => '</div>',
       '#value' => t('You may use %keywords from contexts, as well as %title to contain the original title.'),
-    );
-  }
-
-  // Add CSS class and ID gadgets to all panes if advanced pane settings is set.
-  if (user_access('administer advanced pane settings')) {
-    $form['css_id'] = array(
-      '#type' => 'textfield',
-      '#default_value' => isset($conf['css_id']) ? $conf['css_id'] : '',
-      '#title' => t('CSS ID'),
-      '#description' => t('CSS ID to apply to this content. This may be blank.'),
-      '#weight' => 2,
-      '#size' => 15,
-    );
-    $form['css_class'] = array(
-      '#type' => 'textfield',
-      '#default_value' => isset($conf['css_class']) ? $conf['css_class'] : '',
-      '#title' => t('CSS class'),
-      '#description' => t('CSS class to apply to this content. This may be blank.'),
-      '#weight' => 2,
-      '#size' => 15,
     );
   }
 
@@ -245,9 +154,9 @@ function panels_ct_pane_config_form($pane, $contexts, $parents, $op, $content_ty
  * @param string $op
  *  Either 'add' or 'edit' depending on the operation being performed.
  */
-function panels_ct_pane_validate_form($content_type, $form, &$form_values, $op) {
+function panels_ct_pane_validate_form($content_type, $form, &$form_state, $op) {
   if ($function = panels_plugin_get_function('content_types', $content_type, "$op validate callback")) {
-    return $function($form, $form_values);
+    return $function($form, $form_state);
   }
 }
 
@@ -269,14 +178,14 @@ function panels_ct_pane_submit_form($content_type, &$form_values, $op) {
 }
 
 /**
- * Get all of the individual types provided by a given content type. This
+ * Get all of the individual subtypes provided by a given content type. This
  * would be all of the blocks for the block type, or all of the views for
  * the view type.
  *
  * @param $type
  *   The content type to load.
  */
-function panels_ct_get_types($type) {
+function panels_ct_get_subtypes($type) {
   if (is_array($type)) {
     $content_type = $type;
   }
@@ -284,7 +193,15 @@ function panels_ct_get_types($type) {
     $content_type = panels_get_content_type($type);
   }
 
-  $function = $content_type['content_types'];
+  // Leave this in to maintain a little backward compatibility. We can take
+  // this out later.
+  if (isset($content_type['content types'])) {
+    $function = $content_type['content types'];
+  }
+  else {
+    $function = $content_type['content_types'];
+  }
+  
   if (is_array($function)) {
     return (array) $function;
   }
@@ -293,6 +210,26 @@ function panels_ct_get_types($type) {
     return (array) $function();
   }
   return array();
+}
+
+/**
+ * Given a content type and a subtype id, return the information about that
+ * content subtype.
+ * 
+ * @param <type> $type
+ * @param <type> $subtype_id 
+ */
+function panels_ct_get_subtype($type, $subtype_id) {
+  $function = panels_plugin_get_function('content_types', $type, 'content_type');
+  if ($function) {
+    return $function($subtype_id);
+  }
+  else {
+    $subtypes = panels_ct_get_subtypes($type);
+    if (isset($subtypes[$subtype_id])) {
+      return $subtypes[$subtype_id];
+    }
+  }
 }
 
 /**
@@ -325,8 +262,9 @@ function panels_get_available_content_types($contexts = NULL, $has_content = FAL
   $content_types = panels_get_content_types();
   $available = array();
 
+  ctools_include('context');
   foreach ($content_types as $id => $type) {
-    foreach (panels_ct_get_types($type) as $cid => $cinfo) {
+    foreach (panels_ct_get_subtypes($type) as $cid => $cinfo) {
       // exclude items that require content if we're saying we don't
       // provide it.
       if (!empty($cinfo['requires content']) && !$has_content) {
@@ -335,7 +273,6 @@ function panels_get_available_content_types($contexts = NULL, $has_content = FAL
 
       // Check to see if the content type can be used in this context.
       if (!empty($cinfo['required context'])) {
-        ctools_include('context');
         if (!ctools_context_filter($contexts, $cinfo['required context'])) {
           continue;
         }
@@ -370,7 +307,7 @@ function panels_get_all_content_types() {
   $available = array();
 
   foreach ($content_types as $id => $type) {
-    foreach (panels_ct_get_types($type) as $cid => $cinfo) {
+    foreach (panels_ct_get_subtypes($type) as $cid => $cinfo) {
       // If we made it through all the tests, then we can use this content.
       $available[$id][$cid] = $cinfo;
     }
@@ -642,14 +579,15 @@ function panels_pane_select_context($pane, $contexts) {
     return;
   }
 
-  $content_type = panels_ct_get_types($pane->type);
+  $subtype = panels_ct_get_subtype($pane->type, $pane->subtype);
   // If the pane requires a context, fetch it; if no context is returned,
   // do not display the pane.
-  if (empty($content_type[$pane->subtype]['required context'])) {
+  if (empty($subtype) || empty($subtype['required context'])) {
     return;
   }
 
-  $context = ctools_context_select($contexts, $content_type[$pane->subtype]['required context'], $pane->configuration['context']);
+  $context = ctools_context_select($contexts, $subtype['required context'],
+    $pane->configuration['context']);
 
   return $context;
 }
@@ -774,6 +712,7 @@ function panels_get_caches() {
  *   does not exist.
  */
 function panels_plugin_get_function($plugin, $which, $function_name) {
+  ctools_include('plugins');
   if (is_object($which) || is_array($which)) {
     return ctools_plugin_get_function($which, $function_name);
   }

@@ -1,5 +1,5 @@
 <?php
-// $Id: default.inc,v 1.1.2.1 2008/12/16 21:27:59 merlinofchaos Exp $
+// $Id: default.inc,v 1.1.2.2 2009/03/24 18:32:20 merlinofchaos Exp $
 
 /**
  * @file styles/block.inc
@@ -15,7 +15,7 @@
 function panels_default_panels_styles() {
   return array(
     'default' => array(
-      'title' => t('Default'),
+      'title' => t('No style'),
       'description' => t('The default panel rendering style; displays each pane with a separator.'),
       'render panel' => 'panels_default_style_render_panel',
     ),

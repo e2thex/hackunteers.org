@@ -1,5 +1,5 @@
 <?php
-// $Id: node_content.inc,v 1.1.2.2 2009/01/15 23:42:35 merlinofchaos Exp $
+// $Id: node_content.inc,v 1.1.2.4 2009/02/22 21:16:39 merlinofchaos Exp $
 
 
 /**
@@ -82,6 +82,11 @@ function panels_content_node_content($subtype, $conf, $panel_args, $context) {
 }
 
 function panels_admin_node_content($node, $conf) {
+  // The build mode identifies the target for which the node is built.
+  if (!isset($node->build_mode)) {
+    $node->build_mode = NODE_BUILD_NORMAL;
+  }
+
   // Remove the delimiter (if any) that separates the teaser from the body.
   $node->body = str_replace('<!--break-->', '', $node->body);
 
@@ -101,11 +106,7 @@ function panels_admin_node_content($node, $conf) {
 
   if ($conf['links']) {
     $node->links = module_invoke_all('link', 'node', $node, $conf['teaser']);
-
-    foreach (module_implements('link_alter') AS $module) {
-      $function = $module .'_link_alter';
-      $function($node, $node->links);
-    }
+    drupal_alter('link', $node->links, $node);
   }
 
   // Set the proper node part, then unset unused $node part so that a bad
